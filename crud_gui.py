@@ -145,4 +145,18 @@ def actualizar_usuario():
     tabla.configure(yscroll=scrollbar.set)
     scrollbar.pack(side="right", fill="y")
 
-    
+    # Cargar datos al inicio
+    listar_usuarios()
+
+    ventana.mainloop()
+
+    # 📌 Características
+    # Interfaz en ventana con Tkinter.
+    # Botones para Agregar, Actualizar y Eliminar usuarios.
+    # Los usuarios se muestran en una tabla con scroll.
+    # Campos de texto para introducir datos.
+    # Colores suaves para hacerlo más agradable a la vista.
+    # 📌 Ejecución  
+    # Guarda el archivo como crud_gui.py.   
+    # Ejecuta en la terminal:   
+    # python crud_gui.py      
