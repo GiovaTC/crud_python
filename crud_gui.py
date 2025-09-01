@@ -109,4 +109,14 @@ def actualizar_usuario():
     entry_nombre = tk.Entry(frame_form, width=30)
     entry_nombre.grid(row=0, column=1, padx=5, pady=5)
 
-        
+
+    tk.Label(frame_form, text="Edad:", bg="#ffffff").grid(row=1, column=0, padx=5, pady=5, sticky="e")
+    entry_edad = tk.Entry(frame_form, width=30)
+    entry_edad.grid(row=1, column=1, padx=5, pady=5)
+
+
+    tk.Label(frame_form, text="Email:", bg="#ffffff").grid(row=2, column=0, padx=5, pady=5, sticky="e")
+    entry_email = tk.Entry(frame_form, width=30)
+    entry_email.grid(row=2, column=1, padx=5, pady=5)
+
+    # Botones
