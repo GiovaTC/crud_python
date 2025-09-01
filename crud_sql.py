@@ -34,3 +34,19 @@ def listar_usuarios():
     return usuarios
 
 # UPDATE
+def actualizar_usuario(id_usuario, nombre=None, edad=None, email=None):
+    conexion = conectar()
+    cursor = conexion.cursor()
+
+    if nombre:
+        cursor.execute("UPDATE Usuarios SET nombre=? WHERE id=?", (nombre, id_usuario))
+    if edad:
+        cursor.execute("UPDATE Usuarios SET edad=? WHERE  id=?", (edad, id_usuario))
+    if email:
+        cursor.execute("UPDATE Usuarios SET email=? WHERE id=?", (email, id_usuario))
+
+    conexion.commit()
+    conexion.close()
+    print(f"usuario con id {id_usuario} actualizado .")
+
+# DELETE
