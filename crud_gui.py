@@ -37,3 +37,21 @@ def insertar_usuario():
     if not nombre or not edad or not email:
         messagebox.showwarning("Campos vacíos", "Por favor complete todos los campos .")
         return
+    
+    conexion =  conectar()
+    cursor = conexion.cursor()
+    try:
+        cursor.execute("INSERT INTO Usuarios (nombre, edad, email) VALUES (?, ?, ?)",
+                       (nombre, int(edad), email))
+        conexion.commit()
+        messagebox.showinfo("Éxito", f"Usuario {nombre} agregado correctamente . ")
+        listar_usuarios()
+        entry_nombre.delete(0, tk.END)
+        entry_edad.delete(0, tk.END)
+        entry_email.delete(0, tk.END)
+    except Exception as e:
+        messagebox.showerror("Error", str(e))
+    finally:
+        conexion.close
+
+
