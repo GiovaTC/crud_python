@@ -54,4 +54,19 @@ def insertar_usuario():
     finally:
         conexion.close
 
+def eliminar_usuario():
+    seleccionado = tabla.focus()
+    if not seleccionado:
+        messagebox.showwarning("Selección", "Seleccione un usuario para eliminar . ")
+        return
+    
+    datos = tabla.item(seleccionado)["values"]
+    id_usuario = datos[0]
 
+    conexion = conectar()
+    cursor = conexion.cursor()
+    cursor.execute("DELETE FROM Usuarios WHERE id=?", (id_usuario,))
+    conexion.commit()
+    conexion.close()
+    messagebox.showinfo("Éxito", f"Usuario con ID {id_usuario} eliminado .")
+    listar_usuarios()
