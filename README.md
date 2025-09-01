@@ -1,7 +1,8 @@
 	
 # CRUD en Python conectado a SQL Server usando la librería `pyodbc`
 
-
+<img width="2554" height="1079" alt="image" src="https://github.com/user-attachments/assets/6b2df811-60ca-47a6-88bd-d914eaecf9a7" />
+	
 <img width="2559" height="1042" alt="image" src="https://github.com/user-attachments/assets/51c95902-7966-44cd-ae19-c9c261baa8a5" />
 
 
