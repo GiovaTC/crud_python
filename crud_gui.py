@@ -70,3 +70,28 @@ def eliminar_usuario():
     conexion.close()
     messagebox.showinfo("Éxito", f"Usuario con ID {id_usuario} eliminado .")
     listar_usuarios()
+
+def actualizar_usuario():
+    seleccionado = tabla.focus()
+    if not seleccionado:
+        messagebox.showwarning("Selección", "Seleccione un usuario para actualizar .")
+        return
+    
+    datos = tabla.item(seleccionado)["values"]
+    id_usuario = datos[0]
+
+    nombre = entry_nombre.get() or datos[1]
+    edad = entry_edad.get() or datos[2]
+    email = entry_email.get() or datos[3]
+
+    conexion = conectar()
+    cursor = conexion.cursor()
+    cursor.execute("UPDATE Usuarios SET nombre=?, edad=?, email=? WHERE = id=?",
+                   (nombre, int(edad, email, id_usuario)))
+    conexion.commit()
+    conexion.close()
+    messagebox.showinfo("Éxito", f"Usuario con ID {id_usuario} actualizado .")
+
+    # -------------------------
+    # Interfaz gráfica (Tkinter)
+    # -------------------------
