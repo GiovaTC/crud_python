@@ -73,7 +73,7 @@ if __name__ == "__main__":
         print(u)
 
 # Actualizar usuarios
-    actualizar_usuario(1, nombre="Juan sonora", edad=94)
+    actualizar_usuario(2, nombre="Ana Loceba", edad=94)
 
 # Eliminar usuarios
     eliminar_usuario(1)
