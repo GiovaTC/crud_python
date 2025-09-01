@@ -120,3 +120,13 @@ def actualizar_usuario():
     entry_email.grid(row=2, column=1, padx=5, pady=5)
 
     # Botones
+    btn_agregar = tk.Button(frame_form, text="Agregar", bg="#28a745", fg="white", command=insertar_usuario)
+    btn_agregar.grid(row=0, column=2, padx=10)
+
+    btn_actualizar = tk.Button(frame_form, text="Actualizar", bg="#ffc107", fg="black", command=actualizar_usuario)
+    btn_actualizar.grid(row=1, column=2, padx=10)
+
+    btn_eliminar = tk.Button(frame_form, text="Eliminar", bg="#dc3545", fg="white", command=eliminar_usuario)
+    btn_eliminar.grid(row=2, column=2, padx=10)
+
+    # Tabla de usuarios
