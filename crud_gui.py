@@ -1,162 +1,91 @@
 import tkinter as tk
 from tkinter import ttk, messagebox
-import pyodbc
+import crud_sql  # importa el otro archivo
 
-# ------------------------
-# Conexión a SQL Server
-# ------------------------
-def conectar():
-    conexion = pyodbc.connect(
-        "DRIVER={ODBC Driver 17 for SQL Server};"
-        "SERVER=GTAPIERO-POLI;" # Cambia por tu servidor, ej: "localhost\\SQLEXPRESS"
-        "DATABASE=PruebaPython;"
-        "UID=sa;"
-        "PWD=tapiero;"
-    )
-    return conexion
+def cargar_usuarios():
+    for row in tree.get_children():
+        tree.delete(row)
+    for usuario in crud_sql.obtener_usuarios():
+        tree.insert("", tk.END, values=usuario)
 
-# ----------------------------
-# Funciones CRUD
-# ----------------------------
-def listar_usuarios():
-    for row in tabla.get_children():
-        tabla.delete(row)
-
-    conexion = conectar()
-    cursor = conexion.cursor()
-    cursor.execute("SELECT  * FROM Usuarios")
-    for u in cursor.fetchall():
-        tabla.insert("", "end", values=u)
-    conexion.close()
-
-def insertar_usuario():
+def agregar_usuario():
     nombre = entry_nombre.get()
     edad = entry_edad.get()
     email = entry_email.get()
 
     if not nombre or not edad or not email:
-        messagebox.showwarning("Campos vacíos", "Por favor complete todos los campos .")
+        messagebox.showwarning("Error", "Todos los campos son obligatorios")
         return
-    
-    conexion =  conectar()
-    cursor = conexion.cursor()
-    try:
-        cursor.execute("INSERT INTO Usuarios (nombre, edad, email) VALUES (?, ?, ?)",
-                       (nombre, int(edad), email))
-        conexion.commit()
-        messagebox.showinfo("Éxito", f"Usuario {nombre} agregado correctamente . ")
-        listar_usuarios()
-        entry_nombre.delete(0, tk.END)
-        entry_edad.delete(0, tk.END)
-        entry_email.delete(0, tk.END)
-    except Exception as e:
-        messagebox.showerror("Error", str(e))
-    finally:
-        conexion.close
 
-def eliminar_usuario():
-    seleccionado = tabla.focus()
-    if not seleccionado:
-        messagebox.showwarning("Selección", "Seleccione un usuario para eliminar . ")
-        return
-    
-    datos = tabla.item(seleccionado)["values"]
-    id_usuario = datos[0]
-
-    conexion = conectar()
-    cursor = conexion.cursor()
-    cursor.execute("DELETE FROM Usuarios WHERE id=?", (id_usuario,))
-    conexion.commit()
-    conexion.close()
-    messagebox.showinfo("Éxito", f"Usuario con ID {id_usuario} eliminado .")
-    listar_usuarios()
+    crud_sql.insertar_usuario(nombre, int(edad), email)
+    cargar_usuarios()
+    entry_nombre.delete(0, tk.END)
+    entry_edad.delete(0, tk.END)
+    entry_email.delete(0, tk.END)
 
 def actualizar_usuario():
-    seleccionado = tabla.focus()
+    seleccionado = tree.selection()
     if not seleccionado:
-        messagebox.showwarning("Selección", "Seleccione un usuario para actualizar .")
+        messagebox.showwarning("Error", "Selecciona un usuario")
         return
-    
-    datos = tabla.item(seleccionado)["values"]
-    id_usuario = datos[0]
 
-    nombre = entry_nombre.get() or datos[1]
-    edad = entry_edad.get() or datos[2]
-    email = entry_email.get() or datos[3]
+    item = tree.item(seleccionado)
+    id_usuario = item["values"][0]
 
-    conexion = conectar()
-    cursor = conexion.cursor()
-    cursor.execute("UPDATE Usuarios SET nombre=?, edad=?, email=? WHERE = id=?",
-                   (nombre, int(edad, email, id_usuario)))
-    conexion.commit()
-    conexion.close()
-    messagebox.showinfo("Éxito", f"Usuario con ID {id_usuario} actualizado .")
+    nombre = entry_nombre.get()
+    edad = entry_edad.get()
+    email = entry_email.get()
 
-    # -------------------------
-    # Interfaz gráfica (Tkinter)
-    # -------------------------
+    crud_sql.actualizar_usuario(id_usuario, nombre, int(edad), email)
+    cargar_usuarios()
 
-    ventana = tk.Tk()
-    ventana.title("CRUD Usuarios - Python + SQL Server")
-    ventana.geometry("650*400")
-    ventana.config(bg="#f4f6f9")
+def eliminar_usuario():
+    seleccionado = tree.selection()
+    if not seleccionado:
+        messagebox.showwarning("Error", "Selecciona un usuario")
+        return
 
-    # Frame de formulario
-    frame_form = tk.Frame(ventana, bg="#ffffff", padx=10, pady=10, relief="ridge", borderwidth=2)
-    frame_form.pack(side="top", fill="x", pady=10, padx=10)
+    item = tree.item(seleccionado)
+    id_usuario = item["values"][0]
 
-    tk.Label(frame_form, text="Nombre:", bg="#ffffff").grid(row=0, column=0, padx=5, pady=5, sticky="e")
-    entry_nombre = tk.Entry(frame_form, width=30)
-    entry_nombre.grid(row=0, column=1, padx=5, pady=5)
+    crud_sql.eliminar_usuario(id_usuario)
+    cargar_usuarios()
 
+# Ventana principal
+root = tk.Tk()
+root.title("CRUD con SQL Server y Tkinter")
 
-    tk.Label(frame_form, text="Edad:", bg="#ffffff").grid(row=1, column=0, padx=5, pady=5, sticky="e")
-    entry_edad = tk.Entry(frame_form, width=30)
-    entry_edad.grid(row=1, column=1, padx=5, pady=5)
+frame = tk.Frame(root)
+frame.pack(pady=10)
 
+tk.Label(frame, text="Nombre:").grid(row=0, column=0, padx=5, pady=5)
+entry_nombre = tk.Entry(frame)
+entry_nombre.grid(row=0, column=1)
 
-    tk.Label(frame_form, text="Email:", bg="#ffffff").grid(row=2, column=0, padx=5, pady=5, sticky="e")
-    entry_email = tk.Entry(frame_form, width=30)
-    entry_email.grid(row=2, column=1, padx=5, pady=5)
+tk.Label(frame, text="Edad:").grid(row=1, column=0, padx=5, pady=5)
+entry_edad = tk.Entry(frame)
+entry_edad.grid(row=1, column=1)
 
-    # Botones
-    btn_agregar = tk.Button(frame_form, text="Agregar", bg="#28a745", fg="white", command=insertar_usuario)
-    btn_agregar.grid(row=0, column=2, padx=10)
+tk.Label(frame, text="Email:").grid(row=2, column=0, padx=5, pady=5)
+entry_email = tk.Entry(frame)
+entry_email.grid(row=2, column=1)
 
-    btn_actualizar = tk.Button(frame_form, text="Actualizar", bg="#ffc107", fg="black", command=actualizar_usuario)
-    btn_actualizar.grid(row=1, column=2, padx=10)
+btn_agregar = tk.Button(frame, text="Agregar", command=agregar_usuario, bg="lightgreen")
+btn_agregar.grid(row=3, column=0, padx=5, pady=5)
 
-    btn_eliminar = tk.Button(frame_form, text="Eliminar", bg="#dc3545", fg="white", command=eliminar_usuario)
-    btn_eliminar.grid(row=2, column=2, padx=10)
+btn_actualizar = tk.Button(frame, text="Actualizar", command=actualizar_usuario, bg="lightblue")
+btn_actualizar.grid(row=3, column=1, padx=5, pady=5)
 
-    # Tabla de usuarios
-    frame_tabla = tk.Frame(ventana)
-    frame_tabla.pack(fill="both", expand=True, padx=10, pady=10)
+btn_eliminar = tk.Button(frame, text="Eliminar", command=eliminar_usuario, bg="salmon")
+btn_eliminar.grid(row=3, column=2, padx=5, pady=5)
 
-    columnas = ("ID", "Nombre", "Edad", "Email")
-    tabla = ttk.Treeview(frame_tabla, columns=columnas, show="headings", height=10)
-    for col in columnas:
-        tabla.heading(col, text=col)
-        tabla.column(col, width=150)
-    
-    tabla.pack(side="left", fill="both", expand=True)
+tree = ttk.Treeview(root, columns=("ID", "Nombre", "Edad", "Email"), show="headings")
+tree.heading("ID", text="ID")
+tree.heading("Nombre", text="Nombre")
+tree.heading("Edad", text="Edad")
+tree.heading("Email", text="Email")
+tree.pack(pady=10)
 
-    scrollbar = ttk.Scrollbar(frame_tabla, orient="vertical", command=tabla.yview)
-    tabla.configure(yscroll=scrollbar.set)
-    scrollbar.pack(side="right", fill="y")
+cargar_usuarios()
 
-    # Cargar datos al inicio
-    listar_usuarios()
-
-    ventana.mainloop()
-
-    # 📌 Características
-    # Interfaz en ventana con Tkinter.
-    # Botones para Agregar, Actualizar y Eliminar usuarios.
-    # Los usuarios se muestran en una tabla con scroll.
-    # Campos de texto para introducir datos.
-    # Colores suaves para hacerlo más agradable a la vista.
-    # 📌 Ejecución  
-    # Guarda el archivo como crud_gui.py.   
-    # Ejecuta en la terminal:   
-    # python crud_gui.py      
+root.mainloop()
