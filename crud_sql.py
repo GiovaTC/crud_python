@@ -49,4 +49,36 @@ def actualizar_usuario(id_usuario, nombre=None, edad=None, email=None):
     conexion.close()
     print(f"usuario con id {id_usuario} actualizado .")
 
-# DELETE
+# --------------------------------------- #
+# --------------------------------------- #
+# --------------------------------------- #
+
+# DELETE    
+def  eliminar_usuario(id_usuario):
+    conexion = conectar()
+    cursor = conexion.cursor()
+    cursor.execute("DELETE FROM Usuarios WHERE id=?", (id_usuario))
+    conexion.commit()
+    conexion.close()
+    print(f"usuario con id {id_usuario} eliminado.")
+
+if __name__ == "__main__":
+    # Insertar datos
+    insertar_usuario("Juan sonora", 40, "sonora@clr.com.co")
+    insertar_usuario("Ana Loceba", 64, "loceba@clr.com.co")
+
+# Listar usuarios 
+    print("Usuarios Registrados: ")
+    for u in listar_usuarios():
+        print(u)
+
+# Actualizar usuarios
+    actualizar_usuario(1, nombre="Juan sonora", edad=94)
+
+# Eliminar usuarios
+    eliminar_usuario(1)
+
+# Listar usuario final
+    print("\nUsuarios después de cambios: ")
+    for u in listar_usuarios():
+        print(u)
