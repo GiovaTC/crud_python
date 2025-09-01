@@ -95,3 +95,18 @@ def actualizar_usuario():
     # -------------------------
     # Interfaz gráfica (Tkinter)
     # -------------------------
+
+    ventana = tk.Tk()
+    ventana.title("CRUD Usuarios - Python + SQL Server")
+    ventana.geometry("650*400")
+    ventana.config(bg="#f4f6f9")
+
+    # Frame de formulario
+    frame_form = tk.Frame(ventana, bg="#ffffff", padx=10, pady=10, relief="ridge", borderwidth=2)
+    frame_form.pack(side="top", fill="x", pady=10, padx=10)
+
+    tk.Label(frame_form, text="Nombre:", bg="#ffffff").grid(row=0, column=0, padx=5, pady=5, sticky="e")
+    entry_nombre = tk.Entry(frame_form, width=30)
+    entry_nombre.grid(row=0, column=1, padx=5, pady=5)
+
+        
