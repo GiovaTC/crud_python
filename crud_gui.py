@@ -130,3 +130,19 @@ def actualizar_usuario():
     btn_eliminar.grid(row=2, column=2, padx=10)
 
     # Tabla de usuarios
+    frame_tabla = tk.Frame(ventana)
+    frame_tabla.pack(fill="both", expand=True, padx=10, pady=10)
+
+    columnas = ("ID", "Nombre", "Edad", "Email")
+    tabla = ttk.Treeview(frame_tabla, columns=columnas, show="headings", height=10)
+    for col in columnas:
+        tabla.heading(col, text=col)
+        tabla.column(col, width=150)
+    
+    tabla.pack(side="left", fill="both", expand=True)
+
+    scrollbar = ttk.Scrollbar(frame_tabla, orient="vertical", command=tabla.yview)
+    tabla.configure(yscroll=scrollbar.set)
+    scrollbar.pack(side="right", fill="y")
+
+    
