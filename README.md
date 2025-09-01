@@ -137,3 +137,88 @@ El driver ODBC Driver 17 for SQL Server debe estar instalado en tu máquina.
 Si usas una versión más nueva, cambia por:
 
 ODBC Driver 18 for SQL Server
+
+# 🚀 Ejecutar aplicación CRUD en Python con SQL Server
+
+---
+
+## 🔹 1. Prepara SQL Server
+
+Abre **SQL Server Management Studio (SSMS)** o **Azure Data Studio**.
+
+Crea la base de datos de prueba (solo una vez):
+
+```sql
+CREATE DATABASE PruebaPython;
+GO
+
+USE PruebaPython;
+
+CREATE TABLE Usuarios (
+    id INT PRIMARY KEY IDENTITY(1,1),
+    nombre NVARCHAR(100) NOT NULL,
+    edad INT,
+    email NVARCHAR(100) UNIQUE NOT NULL
+);
+```
+---
+
+## 🔹 2. Instala dependencias en Python
+
+Abre tu terminal o consola y ejecuta:
+
+```bash
+pip install pyodbc
+```
+
+⚠️ Además necesitas el driver **ODBC Driver 17 (o 18) for SQL Server**:
+
+👉 En Windows puedes descargarlo desde: [Microsoft ODBC Driver for SQL Server](https://learn.microsoft.com/sql/connect/odbc/download-odbc-driver-for-sql-server).
+
+---
+
+## 🔹 3. Ajusta el archivo Python
+
+Guarda el código del CRUD en un archivo, por ejemplo: **`crud_sqlserver.py`**
+
+En la parte de la conexión:
+
+```python
+conexion = pyodbc.connect(
+    "DRIVER={ODBC Driver 17 for SQL Server};"
+    "SERVER=localhost\SQLEXPRESS;"  # <-- ajusta tu instancia aquí
+    "DATABASE=PruebaPython;"
+    "UID=sa;"
+    "PWD=TuPasswordAqui;"
+)
+```
+
+---
+
+## 🔹 4. Ejecuta la aplicación
+
+En la consola, ve a la carpeta donde guardaste `crud_sqlserver.py` y ejecuta:
+
+```bash
+python crud_sqlserver.py
+```
+
+---
+
+## 🔹 5. Resultado esperado
+
+Deberías ver en la consola algo como:
+
+```
+Usuario Juan sonora insertado con éxito.
+Usuario Ana Loceba insertado con éxito.
+Usuarios registrados:
+(1, 'Juan sonora', 40, 'sonora@clr.com.co')
+(2, 'Ana Loceba', 64, 'loceba@clr.com.co')
+Usuario con ID 2 actualizado.
+Usuario con ID 1 eliminado.
+
+Usuarios después de cambios:
+(2, 'Ana Loceba', 94, 'loceba@clr.com.co')
+```
+
