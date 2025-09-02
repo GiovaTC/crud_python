@@ -5,7 +5,9 @@
 	
 <img width="2559" height="1042" alt="image" src="https://github.com/user-attachments/assets/51c95902-7966-44cd-ae19-c9c261baa8a5" />
 
--- Inserts de prueba para la tabla Usuarios
+# 📌 Inserts de prueba para la tabla `Usuarios`
+
+```sql
 INSERT INTO Usuarios (nombre, edad, email) VALUES ('Carlos Pérez', 28, 'carlos.perez@example.com');
 INSERT INTO Usuarios (nombre, edad, email) VALUES ('María Gómez', 34, 'maria.gomez@example.com');
 INSERT INTO Usuarios (nombre, edad, email) VALUES ('Juan Rodríguez', 22, 'juan.rodriguez@example.com');
@@ -26,8 +28,6 @@ INSERT INTO Usuarios (nombre, edad, email) VALUES ('José Martínez', 40, 'jose.
 INSERT INTO Usuarios (nombre, edad, email) VALUES ('Carolina Jiménez', 31, 'carolina.jimenez@example.com');
 INSERT INTO Usuarios (nombre, edad, email) VALUES ('Martín Ortega', 23, 'martin.ortega@example.com');
 INSERT INTO Usuarios (nombre, edad, email) VALUES ('Isabella Pardo', 27, 'isabella.pardo@example.com');
-
----
 
 ## 📌 Pasos previos
 
