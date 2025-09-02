@@ -5,6 +5,27 @@
 	
 <img width="2559" height="1042" alt="image" src="https://github.com/user-attachments/assets/51c95902-7966-44cd-ae19-c9c261baa8a5" />
 
+-- Inserts de prueba para la tabla Usuarios
+INSERT INTO Usuarios (nombre, edad, email) VALUES ('Carlos Pérez', 28, 'carlos.perez@example.com');
+INSERT INTO Usuarios (nombre, edad, email) VALUES ('María Gómez', 34, 'maria.gomez@example.com');
+INSERT INTO Usuarios (nombre, edad, email) VALUES ('Juan Rodríguez', 22, 'juan.rodriguez@example.com');
+INSERT INTO Usuarios (nombre, edad, email) VALUES ('Ana Torres', 29, 'ana.torres@example.com');
+INSERT INTO Usuarios (nombre, edad, email) VALUES ('Luis Ramírez', 41, 'luis.ramirez@example.com');
+INSERT INTO Usuarios (nombre, edad, email) VALUES ('Sofía Morales', 25, 'sofia.morales@example.com');
+INSERT INTO Usuarios (nombre, edad, email) VALUES ('Pedro Hernández', 36, 'pedro.hernandez@example.com');
+INSERT INTO Usuarios (nombre, edad, email) VALUES ('Laura Castillo', 27, 'laura.castillo@example.com');
+INSERT INTO Usuarios (nombre, edad, email) VALUES ('Andrés Fernández', 33, 'andres.fernandez@example.com');
+INSERT INTO Usuarios (nombre, edad, email) VALUES ('Camila Vargas', 30, 'camila.vargas@example.com');
+INSERT INTO Usuarios (nombre, edad, email) VALUES ('Diego Rojas', 24, 'diego.rojas@example.com');
+INSERT INTO Usuarios (nombre, edad, email) VALUES ('Paola Medina', 32, 'paola.medina@example.com');
+INSERT INTO Usuarios (nombre, edad, email) VALUES ('Fernando Cruz', 38, 'fernando.cruz@example.com');
+INSERT INTO Usuarios (nombre, edad, email) VALUES ('Valentina López', 26, 'valentina.lopez@example.com');
+INSERT INTO Usuarios (nombre, edad, email) VALUES ('Ricardo Sánchez', 35, 'ricardo.sanchez@example.com');
+INSERT INTO Usuarios (nombre, edad, email) VALUES ('Daniela Herrera', 29, 'daniela.herrera@example.com');
+INSERT INTO Usuarios (nombre, edad, email) VALUES ('José Martínez', 40, 'jose.martinez@example.com');
+INSERT INTO Usuarios (nombre, edad, email) VALUES ('Carolina Jiménez', 31, 'carolina.jimenez@example.com');
+INSERT INTO Usuarios (nombre, edad, email) VALUES ('Martín Ortega', 23, 'martin.ortega@example.com');
+INSERT INTO Usuarios (nombre, edad, email) VALUES ('Isabella Pardo', 27, 'isabella.pardo@example.com');
 
 ---
 
