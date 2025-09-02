@@ -29,6 +29,8 @@ INSERT INTO Usuarios (nombre, edad, email) VALUES ('Carolina Jiménez', 31, 'car
 INSERT INTO Usuarios (nombre, edad, email) VALUES ('Martín Ortega', 23, 'martin.ortega@example.com');
 INSERT INTO Usuarios (nombre, edad, email) VALUES ('Isabella Pardo', 27, 'isabella.pardo@example.com');
 
+<img width="1280" height="1078" alt="image" src="https://github.com/user-attachments/assets/94a4058e-44e9-45d0-8cc8-5b3a040664ba" />
+
 ## 📌 Pasos previos
 
 1. Instalar el conector de SQL Server:
